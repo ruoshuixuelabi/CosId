@@ -13,7 +13,8 @@
 
 package me.ahoo.cosid;
 
-import static me.ahoo.cosid.cosid.Radix62CosIdGenerator.*;
+import static me.ahoo.cosid.cosid.Radix62CosIdGenerator.DEFAULT_MACHINE_BIT;
+import static me.ahoo.cosid.cosid.Radix62CosIdGenerator.DEFAULT_TIMESTAMP_BIT;
 
 import me.ahoo.cosid.converter.Radix62IdConverter;
 import me.ahoo.cosid.cosid.ClockSyncCosIdGenerator;
