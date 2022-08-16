@@ -45,4 +45,4 @@ jobs:
           settings-path: ${{ github.workspace }}
 
       - name: Test CosId-Core
-        run: gradle cosid-core:clean cosid-core:check
+        run: gradle cosid-core:clean cosid-core:test
