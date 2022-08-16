@@ -13,10 +13,6 @@
 
 package me.ahoo.cosid.machine;
 
-import me.ahoo.cosid.machine.InstanceId;
-import me.ahoo.cosid.machine.LocalMachineStateStorage;
-import me.ahoo.cosid.machine.MachineState;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -26,18 +22,18 @@ import org.junit.jupiter.api.Test;
 class LocalMachineStateStorageTest {
     private static final String namespace = "test";
     private final LocalMachineStateStorage fileLocalMachineState = new LocalMachineStateStorage();
-
+    
     @Test
     void get() {
         fileLocalMachineState.remove(namespace, InstanceId.NONE);
         MachineState machineState = fileLocalMachineState.get(namespace, InstanceId.NONE);
         Assertions.assertEquals(-1, machineState.getMachineId());
-
+        
         fileLocalMachineState.set(namespace, 1, InstanceId.NONE);
         machineState = fileLocalMachineState.get(namespace, InstanceId.NONE);
         Assertions.assertEquals(1, machineState.getMachineId());
     }
-
+    
     @Test
     void set() {
         fileLocalMachineState.set(namespace, 1, InstanceId.NONE);
@@ -47,13 +43,13 @@ class LocalMachineStateStorageTest {
         machineState = fileLocalMachineState.get(namespace, InstanceId.NONE);
         Assertions.assertEquals(2, machineState.getMachineId());
     }
-
+    
     @Test
     void remove() {
         fileLocalMachineState.remove(namespace, InstanceId.NONE);
         Assertions.assertFalse(fileLocalMachineState.exists(namespace, InstanceId.NONE));
     }
-
+    
     @Test
     void clear() {
         fileLocalMachineState.clear(namespace);
@@ -61,5 +57,16 @@ class LocalMachineStateStorageTest {
         fileLocalMachineState.set(namespace, 2, InstanceId.of("test1", false));
         fileLocalMachineState.clear(namespace);
         Assertions.assertEquals(0, fileLocalMachineState.size(namespace));
+    }
+    
+    @Test
+    void setIp() {
+        InstanceId instanceId = InstanceId.of("127.0.0.1", 8080, false);
+        fileLocalMachineState.set(namespace, 1, instanceId);
+        MachineState machineState = fileLocalMachineState.get(namespace, instanceId);
+        Assertions.assertEquals(1, machineState.getMachineId());
+        fileLocalMachineState.set(namespace, 2, instanceId);
+        machineState = fileLocalMachineState.get(namespace, instanceId);
+        Assertions.assertEquals(2, machineState.getMachineId());
     }
 }
