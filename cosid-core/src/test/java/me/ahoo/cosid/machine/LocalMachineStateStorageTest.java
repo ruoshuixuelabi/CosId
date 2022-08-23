@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  * @author ahoo wang
  */
 class LocalMachineStateStorageTest {
-    private static final String namespace = "test";
+    private static final String namespace = "{test}";
     private final LocalMachineStateStorage fileLocalMachineState = new LocalMachineStateStorage();
     
     @Test
